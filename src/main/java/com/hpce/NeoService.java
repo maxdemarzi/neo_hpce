@@ -78,12 +78,7 @@ public class NeoService {
 
         try ( Transaction tx = db.beginTx() )
         {
-            final Node user = IteratorUtil.singleOrNull(db.findNodesByLabelAndProperty(Labels.User, "username", username));
-            if(user != null) {
-                for (String prop : user.getPropertyKeys()) {
-                    results.put(prop, user.getProperty(prop));
-                }
-            }
+            //Get the user and their properties
         }
 
         return Response.ok().entity(objectMapper.writeValueAsString(results)).build();
@@ -96,13 +91,7 @@ public class NeoService {
 
         try ( Transaction tx = db.beginTx() )
         {
-            final Node user = IteratorUtil.singleOrNull(db.findNodesByLabelAndProperty(Labels.User, "username", username));
-            if(user != null){
-                for ( Relationship relationship : user.getRelationships(RelationshipTypes.FRIENDS, Direction.BOTH) ){
-                    Node friend = relationship.getOtherNode(user);
-                    results.add((String)friend.getProperty("username"));
-                }
-            }
+           // Get the username of the user's friends
         }
 
         return Response.ok().entity(objectMapper.writeValueAsString(results)).build();
@@ -137,30 +126,13 @@ public class NeoService {
     }
 
     private void getFirstLevelFriends(Node user, Set<Node> friends) {
-        for ( Relationship relationship : user.getRelationships(RelationshipTypes.FRIENDS, Direction.BOTH) ){
-            Node friend = relationship.getOtherNode(user);
-            friends.add(friend);
-        }
+        // Get their Friends
     }
 
     private void getSecondLevelFriends(HashMap<Node, int[]> fofs, Node user, Set<Node> friends) {
-        for ( Node friend : friends ){
-            for (Relationship otherRelationship : friend.getRelationships(RelationshipTypes.FRIENDS, Direction.BOTH) ){
-                Node fof = otherRelationship.getOtherNode(friend);
-                int[] count = fofs.get(fof);
-                if (count == null) {
-                    fofs.put(fof,new int[]{1});
-                } else {
-                    count[0]++;
-                }
-            }
-        }
+        // Get the friends of their friends and group count them
 
-        // Remove Friends from Friends of Friends list
-        fofs.remove(user);
-        for ( Node friend : friends ){
-            fofs.remove(friend);
-        }
+        // Remove the user and their Friends from Friends of Friends list
     }
 
     private void returnFofs(List<Map<String, Object>> results, List<Map.Entry<Node, int[]>> fofList) {

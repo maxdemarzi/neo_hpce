@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static com.hpce.TestHelper.*;
 
+@Ignore
 public class GetUserFriends {
     private NeoService service;
     private GraphDatabaseService db;

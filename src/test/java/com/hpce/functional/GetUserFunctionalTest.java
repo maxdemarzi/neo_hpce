@@ -21,6 +21,7 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static com.hpce.TestHelper.*;
 
+@Ignore
 public class GetUserFunctionalTest {
     private static final Client CLIENT = Client.create();
     private static NeoServer server;

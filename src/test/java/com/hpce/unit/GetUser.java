@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
+@Ignore
 public class GetUser {
     private NeoService service;
     private GraphDatabaseService db;

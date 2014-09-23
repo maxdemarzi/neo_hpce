@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import static com.hpce.TestHelper.*;
 import static org.junit.Assert.assertEquals;
 
+@Ignore
 public class GetUserFOFsFunctionalTest {
     private static final Client CLIENT = Client.create();
     private static NeoServer server;
