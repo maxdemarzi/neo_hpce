@@ -1,0 +1,46 @@
+getUser:
+
+    final Node user = IteratorUtil.singleOrNull(db.findNodesByLabelAndProperty(Labels.User, "username", username));
+    if(user != null) {
+        for (String prop : user.getPropertyKeys()) {
+            results.put(prop, user.getProperty(prop));
+        }
+    }
+
+getUserFriends:
+
+    final Node user = IteratorUtil.singleOrNull(db.findNodesByLabelAndProperty(Labels.User, "username", username));
+    if(user != null){
+        for ( Relationship relationship : user.getRelationships(RelationshipTypes.FRIENDS, Direction.BOTH) ){
+            Node friend = relationship.getOtherNode(user);
+            results.add((String)friend.getProperty("username"));
+        }
+    }
+
+getFirstLevelFriends:
+
+    for ( Relationship relationship : user.getRelationships(RelationshipTypes.FRIENDS, Direction.BOTH) ){
+        Node friend = relationship.getOtherNode(user);
+        friends.add(friend);
+    }
+
+
+getSecondLevelFriends:
+
+    for ( Node friend : friends ){
+        for (Relationship otherRelationship : friend.getRelationships(RelationshipTypes.FRIENDS, Direction.BOTH) ){
+            Node fof = otherRelationship.getOtherNode(friend);
+            int[] count = fofs.get(fof);
+            if (count == null) {
+                fofs.put(fof,new int[]{1});
+            } else {
+                count[0]++;
+            }
+        }
+    }
+
+    // Remove Friends from Friends of Friends list
+    fofs.remove(user);
+    for ( Node friend : friends ){
+        fofs.remove(friend);
+    }
