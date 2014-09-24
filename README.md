@@ -40,22 +40,23 @@ Neo4j High Performance Compressed Edition Code
 
         :GET /v1/service/helloworld
         
-10. Migrate Schema:
         
-        :GET /v1/service/migrate        
-        
-11. Make some Users:
+10. Make some Users:
         
         WITH ["Jennifer","Michelle","Tanya","Julie","Christie","Sophie","Amanda","Khloe","Sarah","Kaylee"] AS names 
         FOREACH (r IN range(0,100000) | CREATE (:User {username:names[r % size(names)]+r}))
         
-12. Relate those Users:
+11. Relate those Users:
         
         MATCH (u1:User),(u2:User)
         WITH u1,u2
         LIMIT 5000000
         WHERE rand() < 0.1
         MERGE (u1)-[:FRIENDS]->(u2);        
+
+12. Migrate Schema:
+        
+        :GET /v1/service/migrate        
         
 13. Remove @Ignore from test/java/com.hpce/unit/GetUser.class and test/java/com.hpce/functional/GetUser.class       
 
