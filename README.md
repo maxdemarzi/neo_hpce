@@ -6,11 +6,17 @@ Neo4j High Performance Compressed Edition Code
 1. Download Neo4j:
 
         curl -O http://dist.neo4j.org/neo4j-community-2.1.3-unix.tar.gz
+or
+
+http://dist.neo4j.org/neo4j-community-2.1.3-windows.zip
 
 2. Uncompress it:
 
 
         tar -xvzf neo4j-community-2.1.3-unix.tar.gz
+
+or unzip it.
+
         
 3. Move it to just "neo4j":
         
