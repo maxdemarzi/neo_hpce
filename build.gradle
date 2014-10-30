@@ -1,0 +1,32 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+ext {
+    neo4jversion = '2.1.5'
+    junitversion = '4.11'
+    jerseyversion = '1.9'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.neo4j:neo4j:$neo4jversion"
+    compile "org.neo4j:server-api:$neo4jversion"
+    compile "org.neo4j.app:neo4j-server:$neo4jversion"
+
+    testCompile "junit:junit:$junitversion"
+    testCompile(group: 'org.neo4j', name: 'neo4j-kernel', version: neo4jversion, classifier: 'tests')
+    testCompile(group: 'org.neo4j.app', name: 'neo4j-server', version: neo4jversion, classifier: 'tests')
+    testCompile "com.sun.jersey:jersey-core:$jerseyversion"
+    testCompile "com.sun.jersey:jersey-client:$jerseyversion"
+}
+
+version = '1.0-SNAPSHOT'
+
+jar {
+    manifest.attributes provider: 'gradle'
+}

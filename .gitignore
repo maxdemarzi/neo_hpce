@@ -1,8 +1,10 @@
+.gradle/
+build/
+target/
 *.tar.gz
 data/
 .idea
 neo4j/
-target/
 *.class
 *.iml
 
