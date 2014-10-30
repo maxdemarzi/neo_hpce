@@ -5,30 +5,30 @@ Neo4j High Performance Compressed Edition Code
 
 1. Download Neo4j:
 
-        curl -O http://dist.neo4j.org/neo4j-community-2.1.3-unix.tar.gz
+        curl -O http://dist.neo4j.org/neo4j-community-2.1.5-unix.tar.gz
 or
 
-http://dist.neo4j.org/neo4j-community-2.1.3-windows.zip
+http://dist.neo4j.org/neo4j-community-2.1.5-windows.zip
 
 2. Uncompress it:
 
 
-        tar -xvzf neo4j-community-2.1.3-unix.tar.gz
+        tar -xvzf neo4j-community-2.1.5-unix.tar.gz
 
 or unzip it.
 
         
 3. Move it to just "neo4j":
         
-        mv neo4j-community-2.1.3 neo4j
+        mv neo4j-community-2.1.5 neo4j
         
 4. Build the extension:
 
-        mvn clean package
+        ./gradlew clean test jar
 
-5. Copy target/neo_hpce-1.0-SNAPSHOT.jar to the plugins/ directory of your Neo4j server.
+5. Copy build/libs/neo_hpce-1.0-SNAPSHOT.jar to the plugins/ directory of your Neo4j server.
 
-        cp target/neo_hpce-1.0-SNAPSHOT.jar neo4j/plugins/.
+        cp build/libs/neo_hpce-1.0-SNAPSHOT.jar neo4j/plugins/.
 
 6. Configure Neo4j to use the extension by adding this line to neo4j/conf/neo4j-server.properties:
 
@@ -72,8 +72,8 @@ or unzip it.
 
 16. Rebuild extension, replace previous one, restart Neo4j:
 
-        mvn clean package
-        cp target/neo_hpce-1.0-SNAPSHOT.jar neo4j/plugins/.
+        ./gradlew clean test jar
+        cp build/libs/neo_hpce-1.0-SNAPSHOT.jar neo4j/plugins/.
         neo4j/bin/neo4j restart
 
 17. Try it:
